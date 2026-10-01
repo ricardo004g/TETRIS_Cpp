@@ -1,4 +1,11 @@
+#ifndef BLOQUES_H
+#define BLOQUES_H
+
 #include "Bloque.h"
+
+///ayuda comun para todos los bloques: escribe el sprite dentro del 4x4 del
+///bloque y deja anotados el tamano y el color de la pieza
+void cargarSprite(Bloque& bloque, const int* sprite, int lado, int _color);
 
 class BloqueO : public Bloque
 {
@@ -6,306 +13,189 @@ public:
     BloqueO(int _positionOnMatrixX, int _positionOnMatrixY, Tabla& _tabla)
         : Bloque(_positionOnMatrixX, _positionOnMatrixY, _tabla)
     {
-        tipoDeBloque = 1; 
-        cargarBloque();   
+        cargarBloque();
+        aparecerEnTabla();
     }
 
+    int getTipo() override { return 1; }
 
     void cargarBloque() override {
-        int bloque[4][4] = {
-            {1, 1, 0, 0},
-            {1, 1, 0, 0},
-            {0, 0, 0, 0},
-            {0, 0, 0, 0}
+        int sprite[2][2] = {
+            {1, 1},
+            {1, 1}
         };
 
-        for(int i = 0; i < 4; i++)
-        {
-            for(int j = 0; j < 4; j++)
-            {
-                setElemento(i, j, bloque[i][j]);
-            }
-        }
+        cargarSprite(*this, &sprite[0][0], 2, COLOR_BLOQUE_O);
     }
-
-    void rotarBloque() override {}
 };
 
 class BloqueI : public Bloque
 {
 public:
-    BloqueI();
-    
+    BloqueI(int _positionOnMatrixX, int _positionOnMatrixY, Tabla& _tabla)
+        : Bloque(_positionOnMatrixX, _positionOnMatrixY, _tabla)
+    {
+        cargarBloque();
+        aparecerEnTabla();
+    }
+
+    int getTipo() override { return 0; }
+
     void cargarBloque() override {
-        int bloque[4][4] = {
+        int sprite[4][4] = {
             {0, 0, 0, 0},
             {1, 1, 1, 1},
             {0, 0, 0, 0},
             {0, 0, 0, 0}
         };
 
-        for(int i = 0; i < 4; i++)
-        {
-            for(int j = 0; j < 4; j++)
-            {
-                setElemento(i, j, bloque[i][j]);
-            }
-        }
-    }
-    void rotarBloque() override {
-        
-        index++;
-        int bloqueArriba[4][4] = {
-        {0, 0, 0, 0},
-        {1, 1, 1, 1},
-        {0, 0, 0, 0},
-        {0, 0, 0, 0}};
-
-        int bloqueAcostado[4][4] = {
-        {0, 1, 0, 0},
-        {0, 1, 0, 0},
-        {0, 1, 0, 0},
-        {0, 1, 0, 0}};
-
-        switch (index)
-        {
-        case 1:
-            tipoDeBloque = 3;
-            for(int i = 0; i < 4; i++)
-            {
-                for(int j = 0; j < 4; j++)
-                {
-                    setElemento(i, j, bloqueArriba[i][j]);
-                }
-            }
-            break;
-
-        case 2:
-            tipoDeBloque = 0;
-            index = -1;
-            for(int i = 0; i < 4; i++)
-            {
-                for(int j = 0; j < 4; j++)
-                {
-                    setElemento(i, j, bloqueAcostado[i][j]);
-                }
-            }
-            break;
-        
-        default:
-            break;
-        }
+        cargarSprite(*this, &sprite[0][0], 4, COLOR_BLOQUE_I);
+        normalizarSprite();
     }
 };
 
 class BloqueL : public Bloque
 {
 public:
-    BloqueL();
-    
-    void cargarBloque() override {
-        int bloque[4][4] = {
-            {1, 0, 0, 0},
-            {1, 0, 0, 0},
-            {1, 1, 0, 0},
-            {0, 0, 0, 0}
-        };
-
-        for(int i = 0; i < 4; i++)
-        {
-            for(int j = 0; j < 4; j++)
-            {
-                setElemento(i, j, bloque[i][j]);
-            }
-        }
+    BloqueL(int _positionOnMatrixX, int _positionOnMatrixY, Tabla& _tabla)
+        : Bloque(_positionOnMatrixX, _positionOnMatrixY, _tabla)
+    {
+        cargarBloque();
+        aparecerEnTabla();
     }
 
-    void rotarBloque() override {
-        
-        index++;
-        int bloqueArriba[4][4] = {
-        {0, 1, 0, 0},
-        {1, 1, 1, 0},
-        {0, 0, 0, 0},
-        {0, 0, 0, 0}};
+    int getTipo() override { return 6; }
 
-        int bloqueDerecha[4][4] ={
-        {0, 1, 0, 0},
-        {0, 1, 1, 0},
-        {0, 1, 0, 0},
-        {0, 0, 0, 0}};
+    void cargarBloque() override {
+        int sprite[3][3] = {
+            {1, 0, 0},
+            {1, 0, 0},
+            {1, 1, 0}
+        };
 
-        int bloqueAbajo[4][4] = {
-        {0, 0, 0, 0},
-        {1, 1, 1, 0},
-        {0, 1, 0, 0},
-        {0, 0, 0, 0}};
-
-        int bloqueIzquierda[4][4] = {
-        {0, 1, 0, 0},
-        {1, 1, 0, 0},
-        {0, 1, 0, 0},
-        {0, 0, 0, 0}};
-
-        switch (index)
-        {
-        case 0:
-
-            tipoDeBloque = 1;
-            for(int i = 0; i < 4; i++)
-            {
-                for(int j = 0; j < 4; j++)
-                {
-                    setElemento(i, j, bloqueDerecha[i][j]);
-                }
-            }
-            break;
-        
-        case 1:
-
-            tipoDeBloque = 2;
-            for(int i = 0; i < 4; i++)
-            {
-                for(int j = 0; j < 4; j++)
-                {
-                    setElemento(i, j, bloqueAbajo[i][j]);
-                }
-            }
-            break;
-
-        case 2:
-
-            tipoDeBloque = 3;
-            for(int i = 0; i < 4; i++)
-            {
-                for(int j = 0; j < 4; j++)
-                {
-                    setElemento(i, j, bloqueIzquierda[i][j]);
-                }
-            }
-            break;
-
-        case 3:
-
-            tipoDeBloque = 0;
-            index = -1;
-            for(int i = 0; i < 4; i++)
-            {
-                for(int j = 0; j < 4; j++)
-                {
-                    setElemento(i, j, bloqueArriba[i][j]);
-                }
-            }
-            break;
-        
-        default:
-            break;
-        }
+        cargarSprite(*this, &sprite[0][0], 3, COLOR_BLOQUE_L);
+        normalizarSprite();
     }
 };
 
 class BloqueT : public Bloque
 {
 public:
-    BloqueT();
-    
+    BloqueT(int _positionOnMatrixX, int _positionOnMatrixY, Tabla& _tabla)
+        : Bloque(_positionOnMatrixX, _positionOnMatrixY, _tabla)
+    {
+        cargarBloque();
+        aparecerEnTabla();
+    }
+
+    int getTipo() override { return 2; }
+
     void cargarBloque() override {
-        int bloque[4][4] = {
-            {0, 1, 0, 0},
-            {1, 1, 1, 0},
-            {0, 0, 0, 0},
-            {0, 0, 0, 0}
+        int sprite[3][3] = {
+            {0, 1, 0},
+            {1, 1, 1},
+            {0, 0, 0}
         };
 
-        for(int i = 0; i < 4; i++)
-        {
-            for(int j = 0; j < 4; j++)
-            {
-                setElemento(i, j, bloque[i][j]);
-            }
-        }
-    }
-    void rotarBloque() override {
-        
-        index++;
-        int bloqueArriba[4][4] = {
-        {0, 1, 0, 0},
-        {1, 1, 1, 0},
-        {0, 0, 0, 0},
-        {0, 0, 0, 0}};
-
-        int bloqueDerecha[4][4] ={
-        {0, 1, 0, 0},
-        {0, 1, 1, 0},
-        {0, 1, 0, 0},
-        {0, 0, 0, 0}};
-
-        int bloqueAbajo[4][4] = {
-        {0, 0, 0, 0},
-        {1, 1, 1, 0},
-        {0, 1, 0, 0},
-        {0, 0, 0, 0}};
-
-        int bloqueIzquierda[4][4] = {
-        {0, 1, 0, 0},
-        {1, 1, 0, 0},
-        {0, 1, 0, 0},
-        {0, 0, 0, 0}};
-
-        switch (index)
-        {
-        case 0:
-
-            tipoDeBloque = 1;
-            for(int i = 0; i < 4; i++)
-            {
-                for(int j = 0; j < 4; j++)
-                {
-                    setElemento(i, j, bloqueDerecha[i][j]);
-                }
-            }
-            break;
-        
-        case 1:
-
-            tipoDeBloque = 2;
-            for(int i = 0; i < 4; i++)
-            {
-                for(int j = 0; j < 4; j++)
-                {
-                    setElemento(i, j, bloqueAbajo[i][j]);
-                }
-            }
-            break;
-
-        case 2:
-
-            tipoDeBloque = 3;
-            for(int i = 0; i < 4; i++)
-            {
-                for(int j = 0; j < 4; j++)
-                {
-                    setElemento(i, j, bloqueIzquierda[i][j]);
-                }
-            }
-            break;
-
-        case 3:
-
-            tipoDeBloque = 0;
-            index = -1;
-            for(int i = 0; i < 4; i++)
-            {
-                for(int j = 0; j < 4; j++)
-                {
-                    setElemento(i, j, bloqueArriba[i][j]);
-                }
-            }
-            break;
-        
-        default:
-            break;
-        }
+        cargarSprite(*this, &sprite[0][0], 3, COLOR_BLOQUE_T);
+        normalizarSprite();
     }
 };
 
+class BloqueS : public Bloque
+{
+public:
+    BloqueS(int _positionOnMatrixX, int _positionOnMatrixY, Tabla& _tabla)
+        : Bloque(_positionOnMatrixX, _positionOnMatrixY, _tabla)
+    {
+        cargarBloque();
+        aparecerEnTabla();
+    }
+
+    int getTipo() override { return 3; }
+
+    void cargarBloque() override {
+        int sprite[3][3] = {
+            {0, 1, 1},
+            {1, 1, 0},
+            {0, 0, 0}
+        };
+
+        cargarSprite(*this, &sprite[0][0], 3, COLOR_BLOQUE_S);
+        normalizarSprite();
+    }
+};
+
+class BloqueZ : public Bloque
+{
+public:
+    BloqueZ(int _positionOnMatrixX, int _positionOnMatrixY, Tabla& _tabla)
+        : Bloque(_positionOnMatrixX, _positionOnMatrixY, _tabla)
+    {
+        cargarBloque();
+        aparecerEnTabla();
+    }
+
+    int getTipo() override { return 4; }
+
+    void cargarBloque() override {
+        int sprite[3][3] = {
+            {1, 1, 0},
+            {0, 1, 1},
+            {0, 0, 0}
+        };
+
+        cargarSprite(*this, &sprite[0][0], 3, COLOR_BLOQUE_Z);
+        normalizarSprite();
+    }
+};
+
+class BloqueJ : public Bloque
+{
+public:
+    BloqueJ(int _positionOnMatrixX, int _positionOnMatrixY, Tabla& _tabla)
+        : Bloque(_positionOnMatrixX, _positionOnMatrixY, _tabla)
+    {
+        cargarBloque();
+        aparecerEnTabla();
+    }
+
+    int getTipo() override { return 5; }
+
+    void cargarBloque() override {
+        int sprite[3][3] = {
+            {0, 0, 1},
+            {1, 1, 1},
+            {0, 0, 0}
+        };
+
+        cargarSprite(*this, &sprite[0][0], 3, COLOR_BLOQUE_J);
+        normalizarSprite();
+    }
+};
+
+void cargarSprite(Bloque& bloque, const int* sprite, int lado, int _color)
+{
+    bloque.configurarSprite(lado, _color);
+
+    //se limpia todo el 4x4 para que no queden restos de una rotacion anterior
+    for(int i = 0; i < 4; i++)
+    {
+        for(int j = 0; j < 4; j++)
+        {
+            bloque.setElemento(i, j, 0);
+        }
+    }
+
+    //"sprite" viene como una lista plana de celdas, asi que se indexa con
+    //i * lado + j
+    for(int i = 0; i < lado; i++)
+    {
+        for(int j = 0; j < lado; j++)
+        {
+            bloque.setElemento(i, j, sprite[i * lado + j]);
+        }
+    }
+}
+
+#endif
