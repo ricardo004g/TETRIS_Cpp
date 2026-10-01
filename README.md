@@ -11,6 +11,10 @@ se reescribió completa: las colisiones se calculan con un solo chequeo, la rota
 usa traslación de matriz, y el `main` ahora maneja puntaje, niveles, reserva y
 reinicio.
 
+## Así se ve
+
+![El Tetris corriendo en la consola de Windows](tetrisimg.png)
+
 ## Qué tiene
 
 - Las 7 piezas clásicas (I, O, T, S, Z, J, L) con su color.
