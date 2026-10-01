@@ -5,12 +5,6 @@ arma en un búfer de pantalla en memoria y una sola vez por cuadro se copia a la
 de Windows con la API de Win32, por eso el juego no tiene ventana ni dependencias: se
 compila y se juega.
 
-Este repo nació de un Tetris a medio hacer. La estructura de clases se mantuvo tal
-cual estaba (`Tabla` y `Bloque` como base, las siete piezas derivadas), pero la lógica
-se reescribió completa: las colisiones se calculan con un solo chequeo, la rotación
-usa traslación de matriz, y el `main` ahora maneja puntaje, niveles, reserva y
-reinicio.
-
 ## Así se ve
 
 ![El Tetris corriendo en la consola de Windows](tetrisimg.png)
