@@ -306,56 +306,7 @@ public:
                 {
                     gotoxy((X_TABLERA + positionOnMatrixX + j) * 2, Y_TABLERA + positionOnMatrixY + i);
                     setColor(color);
-                    printf("%c", CELDA_LLENA);
-                }
-            }
-        }
-    }
-
-    ///dibuja la pieza "fantasma": donde caeria el bloque si se soltara ahora
-    void dibujarFantasma()
-    {
-        int distancia = 0;
-
-        while(cabeEn(0, distancia + 1))
-        {
-            distancia++;
-        }
-
-        if(distancia == 0)
-        {
-            return;
-        }
-
-        //mismo color de la pieza pero apagado (bit 8 = fondo intenso), para
-        //que se vea de que color es la pieza que va a caer
-        int colorApagado = color | 8;
-
-        for(int i = 0; i < ladoSprite; i++)
-        {
-            for(int j = 0; j < ladoSprite; j++)
-            {
-                if(bloque[i][j] == 1)
-                {
-                    gotoxy((X_TABLERA + positionOnMatrixX + j) * 2, Y_TABLERA + positionOnMatrixY + i + distancia);
-                    setColor(colorApagado);
-                    printf("%c", CELDA_LLENA);
-                }
-            }
-        }
-    }
-
-    void borrarBloque()
-    {
-        for(int i = 0; i < ladoSprite; i++)
-        {
-            for(int j = 0; j < ladoSprite; j++)
-            {
-                if(bloque[i][j] == 1)
-                {
-                    gotoxy((X_TABLERA + positionOnMatrixX + j) * 2, Y_TABLERA + positionOnMatrixY + i);
-                    setColor(COLOR_VACIO);
-                    printf("%c", CELDA_VACIA);
+                    imprimir(CELDA_LLENA);
                 }
             }
         }
@@ -373,7 +324,7 @@ public:
                 {
                     gotoxy(origenX + j * 2, origenY + i);
                     setColor(color);
-                    printf("%c", CELDA_LLENA);
+                    imprimir(CELDA_LLENA);
                 }
             }
         }
