@@ -1,1 +1,7 @@
 .vscode/
+
+#ejecutables
+*.exe
+*.o
+*.obj
+output/
